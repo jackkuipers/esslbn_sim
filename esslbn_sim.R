@@ -16,6 +16,7 @@ N <- 10*n # number of observations
 exp_parents <- 2 # expected number of parents
 graph_type <- "ERs"
 include_truth <- FALSE # don't make artificial search space
+MCMC_sample_its <- max(25000, 5*round(n*n*log(n)))
 
 if (sim_setting == 2){ # smaller sample size
   N <- 2*n # number of observations
@@ -147,7 +148,7 @@ if (!file.exists(paste0(dir_name, "/", f_name, "_BiDAG.Rdata"))) {
   orderchain <- orderMCMC(scoreObject, startspace = bestDAGs$endspace, 
                          MAP = FALSE, plus1 = TRUE, chainout = TRUE, 
                          startorder = bestDAGs$maxorder,
-                         iterations = 10*round(n*n*log(n)),
+                         iterations = MCMC_sample_its,
                          hardlimit = max(colSums(bestDAGs$endspace)))
 
   # Stop the clock
@@ -172,7 +173,7 @@ if (!file.exists(paste0(dir_name, "/", f_name, "_BiDAG.Rdata"))) {
   iorderchain <- orderMCMC(scoreObject, startspace = bestDAGs$startspace, 
                         MAP = FALSE, plus1 = TRUE, chainout = TRUE, 
                         startorder = bestDAGs$maxorder,
-                        iterations = 10*round(n*n*log(n)),
+                        iterations = MCMC_sample_its,
                         hardlimit = max(colSums(bestDAGs$startspace)))
 
   # Stop the clock
@@ -198,7 +199,7 @@ if (!file.exists(paste0(dir_name, "/", f_name, "_BiDAG.Rdata"))) {
   morderchain <- orderMCMC(scoreObject, startspace = joined_space, 
                            MAP = FALSE, plus1 = TRUE, chainout = TRUE, 
                            startorder = bestDAGs$maxorder,
-                           iterations = 10*round(n*n*log(n)),
+                           iterations = MCMC_sample_its,
                            hardlimit = max(colSums(joined_space)))
   
   # Stop the clock
