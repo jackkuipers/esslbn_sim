@@ -9,8 +9,6 @@ wFUN <- function(m, lb, ub){ # function for edge weights
 
 ### This function generates Gaussian data from a DAG
 # following the topological order
-### Intervened data points are set to random values
-# without worrying about the parents
 
 rmvDAG <- function(trueDAGedges, N, standardise = TRUE) {
   trueDAG <- 1*(trueDAGedges != 0) # the edge presence in the DAG
